@@ -9,13 +9,19 @@ app.use(bodyParser.json());
 app.use(express.json());
 dotenv.config({ path: "./.env" });
 const port = 5000;
-router.use("./api/users", router);
+app.use("/api/users", router);
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello From Elite Cart Backend");
 });
 async function main() {
-  await mongoose.connect(process.env.DB_URI as string);
+  try {
+    await mongoose.connect(process.env.DB_URI as string);
+    console.log("Database connected");
+  } catch (err) {
+    console.error("Database connection error:", err);
+  }
 }
+
 main().catch((err) => console.log(err));
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
