@@ -27,7 +27,23 @@ const getUsers = async (req: Request, res: Response) => {
     });
   }
 };
+const updateUser = async (req: Request, res: Response) => {
+  const id = req.params._id;
+
+  const updatedUserData = userService.updateUserFromDB(id, req.body);
+  try {
+    res.status(200).json({
+      message: "updated  User data",
+      data: updatedUserData,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: { error },
+    });
+  }
+};
 export const userController = {
   createUser,
   getUsers,
+  updateUser,
 };
