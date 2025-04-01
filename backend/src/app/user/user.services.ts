@@ -7,12 +7,18 @@ const createUserInDB = async (user: IUser) => {
 const getUsersFromDB = async () => {
   return await userModel.User.find();
 };
+const getSingleUserFromDB = async (id: string) => {
+  return await userModel.User.findById(id);
+};
 const updateUserFromDB = async (id: string, doc: any) => {
-  const filter = { id: id };
-  return await userModel.User.findOneAndUpdate(filter, doc);
+  return await userModel.User.findByIdAndUpdate(id, doc, {
+    new: true,
+    runValidators: true,
+  });
 };
 export const userService = {
   createUserInDB,
   getUsersFromDB,
   updateUserFromDB,
+  getSingleUserFromDB,
 };

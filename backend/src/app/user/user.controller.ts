@@ -27,13 +27,28 @@ const getUsers = async (req: Request, res: Response) => {
     });
   }
 };
+const getSingleUser = async (req: Request, res: Response) => {
+  const id = req.params._id;
+  const singleUser = await userService.getSingleUserFromDB(id);
+
+  try {
+    res.status(200).json({
+      message: "Retrive Single User",
+      data: singleUser,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: { error },
+    });
+  }
+};
 const updateUser = async (req: Request, res: Response) => {
   const id = req.params._id;
 
-  const updatedUserData = userService.updateUserFromDB(id, req.body);
+  const updatedUserData = await userService.updateUserFromDB(id, req.body);
   try {
     res.status(200).json({
-      message: "updated  User data",
+      message: "Updated  User data",
       data: updatedUserData,
     });
   } catch (error) {
@@ -46,4 +61,5 @@ export const userController = {
   createUser,
   getUsers,
   updateUser,
+  getSingleUser,
 };
