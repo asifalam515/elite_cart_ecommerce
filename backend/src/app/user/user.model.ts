@@ -15,6 +15,7 @@ const UserSchema = new Schema<IUser>(
       country: { type: String },
     },
     phone: { type: String, required: true },
+    products: [{ type: Schema.Types.ObjectId, ref: "Product" }],
     createdAt: { type: Date, default: Date.now },
   },
   { timestamps: true }

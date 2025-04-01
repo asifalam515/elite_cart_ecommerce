@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+import { Document, ObjectId } from "mongoose";
 
 export interface IUser extends Document {
   name: string;
@@ -13,6 +13,7 @@ export interface IUser extends Document {
     country?: string;
   };
   phone?: string;
+  products: ObjectId;
   wishlist?: string[]; // Array of product IDs
   createdAt: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
